@@ -1,0 +1,2 @@
+L1: course program, intro to exam, topology, gradient, divergence
+L2: divergence (continued), div theorem, curl, Stokes theorem, Gauge freedom, General solution of conservative and solenoidal fields through potentials, Helmholtz theorem

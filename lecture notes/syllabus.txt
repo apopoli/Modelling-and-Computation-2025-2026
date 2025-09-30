@@ -1,2 +1,6 @@
 L1: course program, intro to exam, topology, gradient, divergence
 L2: divergence (continued), div theorem, curl, Stokes theorem, Gauge freedom, General solution of conservative and solenoidal fields through potentials, Helmholtz theorem
+L3: Maxwell's equations in free space, continuity equation
+L4: Maxwell's equations in matter
+L5: Poynting's theorem, uniqueness theorem for general electromagnetic problems
+L6: Green's identities, mean value theorem for harmonic functions, uniqueness of Poisson problems with Dirichlet BCs

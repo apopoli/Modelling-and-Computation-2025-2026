@@ -4,3 +4,5 @@ L3: Maxwell's equations in free space, continuity equation
 L4: Maxwell's equations in matter
 L5: Poynting's theorem, uniqueness theorem for general electromagnetic problems
 L6: Green's identities, mean value theorem for harmonic functions, uniqueness of Poisson problems with Dirichlet BCs
+L7: Uniqueness of Poisson problems with Dirichlet + Neumann BCs, problem requiring Robin BCs (steady state conduction with external circuit), Uniqueness of Poisson problems with Dirichlet + Robin BCs, Numerical analysis (intro), sources of errors, positional number representation, fixed point representation
+L8: errors in fixed point representation, floating point representation and errors, IEEE 754 standard

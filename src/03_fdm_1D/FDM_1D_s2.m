@@ -1,4 +1,4 @@
-function [x,phi] = FDM_1D_s1(geom,BC,t)
+function [x,phi] = FDM_1D_s2(geom,BC,t)
 %FDM_1D_S1 Summary of this function goes here
 %   inputs
 %       geom: struct containg info on problem geometry
@@ -30,13 +30,27 @@ for k=2:n-1
     rhs(k) = t*dx^2;
 end
 
-% Dirichlet conditions - first node
-K(1,1) = 1; % to enforce Dirichlet BC on node 1
-rhs(1) = BC.a.val; % value of BC at node a
+% first node
+switch BC.a.type
+    case('D') % Dirichlet conditions
+        K(1,1) = 1; % to enforce Dirichlet BC on node 1
+        rhs(1) = BC.a.val; % value of BC at node a
+    case('N') % Neummann conditions
+        K(1,1) = -1;
+        K(1,2) = 1;
+        rhs(1) = dx*(dx/2*t-BC.a.val); 
+end
 
-% Dirichlet conditions - last node
-K(n,n) = 1; % to enforce Dirichlet BC on node n
-rhs(n) = BC.b.val; % value of BC at node b
+% last node
+switch BC.b.type
+    case('D') % Dirichlet conditions
+        K(n,n) = 1; % to enforce Dirichlet BC on node 1
+        rhs(n) = BC.b.val; % value of BC at node a
+    case('N') % Neummann conditions
+        K(n,n) = -1;
+        K(n,n-1) = 1;
+        rhs(n) = dx*(dx/2*t-BC.b.val); 
+end
 
 % solve the linear system
 phi = K\rhs;

@@ -1,4 +1,4 @@
-function [x,phi] = FDM_1D_s1(geom,BC,t)
+function [x,phi] = FDM_1D_s2(geom,BC,t)
 <<<<<<< Updated upstream
 %FDM_1D_S1 Summary of this function goes here
 %   inputs
@@ -31,13 +31,27 @@ for k=2:n-1
     rhs(k) = t*dx^2;
 end
 
-% Dirichlet conditions - first node
-K(1,1) = 1; % to enforce Dirichlet BC on node 1
-rhs(1) = BC.a.val; % value of BC at node a
+% first node
+switch BC.a.type
+    case('D') % Dirichlet conditions
+        K(1,1) = 1; % to enforce Dirichlet BC on node 1
+        rhs(1) = BC.a.val; % value of BC at node a
+    case('N') % Neummann conditions
+        K(1,1) = -1;
+        K(1,2) = 1;
+        rhs(1) = dx*(dx/2*t-BC.a.val); 
+end
 
-% Dirichlet conditions - last node
-K(n,n) = 1; % to enforce Dirichlet BC on node n
-rhs(n) = BC.b.val; % value of BC at node b
+% last node
+switch BC.b.type
+    case('D') % Dirichlet conditions
+        K(n,n) = 1; % to enforce Dirichlet BC on node 1
+        rhs(n) = BC.b.val; % value of BC at node a
+    case('N') % Neummann conditions
+        K(n,n) = -1;
+        K(n,n-1) = 1;
+        rhs(n) = dx*(dx/2*t-BC.b.val); 
+end
 
 % solve the linear system
 phi = K\rhs;
@@ -45,6 +59,7 @@ phi = K\rhs;
 % compute values of x
 k_idx = 1:1:n; % indexes of nodes
 x = a + dx*(k_idx-1);
+
 =======
 %FDM_1D_s1 Use Finite Difference Method for Poisson's equation in 1D
 %   Solves Poisson problem in 1D
@@ -68,18 +83,25 @@ for i=2:n-1
     K(i,i) = -2; % main diagonal
     K(i,i+1) = 1;
 
-    rhs(i) = dx^2*t;
+    rhs(i) = dx^2*t(x(i)); % x(i): coordinates of node at iteration i
 end
 
 % boundary conditions
 K(1,1) = 1;
 rhs(1) = BC.a.val; % value of BC in a
 
-K(n,n) = 1;
-rhs(n) = BC.b.val; % value of BC in b
+switch BC.b.type
+    case('D')
+        K(n,n) = 1;
+        rhs(n) = BC.b.val; % value of BC in b
+    case('N')
+        K(n,n-1) = 1;
+        K(n,n) = -1;
+        rhs(n) = t(x(n))/2*dx^2 - dx*BC.b.val;
+end
 
 % ready to solve the system!
 phi = K\rhs;
->>>>>>> Stashed changes
 
+>>>>>>> Stashed changes
 end

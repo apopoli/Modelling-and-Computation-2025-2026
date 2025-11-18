@@ -19,6 +19,7 @@ end
 m = (b-a)/2;
 q = (a+b)/2;
 
+% could be rewritten as a for loop based on number of gauss points
 int = sum(w .* m .* f(m.*tau + q));
 
 end
